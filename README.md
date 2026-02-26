@@ -15,6 +15,15 @@ This project provides a set of declarative macros designed to simplify the decla
 
 ## Usage
 
+Add the library to Cargo.toml using Github URL
+
+```toml
+ftest = { git = "https://github.com/fuji-184/FTest.git" }
+
+# for benchmark support in nightly rust
+ftest = { git = "https://github.com/fuji-184/FTest.git", features = ["bench"] }
+```
+
 ### 1. Unit Testing with `test!`
 
 The `test!` macro creates a test module and automatically wraps blocks labeled with your custom name into `#[test]` functions.
@@ -88,8 +97,8 @@ To use the benchmarking features, you must use a Nightly Rust compiler and inclu
 
 ```rust
 #![feature(test)]
-extern crate test;
 
 ```
+
 
 ---
