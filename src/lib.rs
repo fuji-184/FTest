@@ -1,5 +1,3 @@
-#![feature(test)]
-
 #[macro_export]
 macro_rules! parse {
 	($name:ident { $($body:tt)* } $($rest:tt)*) => {
