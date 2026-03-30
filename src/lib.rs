@@ -47,6 +47,8 @@ impl fmt::Debug for TraceError {
             if let Some(loc) = lines.next() {
                 let l = loc.trim();
 
+                if self.caller {
+                  
                 if l.contains("src/")
                     && !l.contains("/rustc/")
                     && !l.contains("core/")
@@ -63,6 +65,9 @@ impl fmt::Debug for TraceError {
                         break;
                     }
                 }
+                
+                }
+                
             }
         }
 
@@ -145,6 +150,27 @@ macro_rules! test {
 			$crate::parse!($($t)*);
 		}
 	};
+}
+
+#[macro_export]
+macro_rules! thiserror {
+    ($err_type:ty) => {
+        impl From<$err_type> for TraceError {
+            #[track_caller]
+            fn from(err: $err_type) -> Self {
+                let loc = std::panic::Location::caller();
+                Self {
+                    inner: Box::new(err),
+                    file: loc.file(),
+                    line: loc.line(),
+                    column: loc.column(),
+                    backtrace: std::backtrace::Backtrace::capture(),
+                    caller: false,
+                    caller_thread: std::thread::current().id(),
+                }
+            }
+        }
+    };
 }
 
 test!(tes, {
