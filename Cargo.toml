@@ -7,7 +7,7 @@ description = "A set of declarative macros designed to simplify the declaration 
 license = "MIT OR Apache-2.0"
 readme = "README.md"
 keywords = ["test", "testing", "unit-test", "benchmark", "utils"]
-categories = ["development-tools::testing", "development-tools::profiling", "development-tools::procedural-macro"]
+categories = ["development-tools::testing", "development-tools::profiling"]
 repository = "https://github.com/fuji-184/FTest"
 homepage = "https://github.com/fuji-184/FTest"
 
