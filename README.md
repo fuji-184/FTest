@@ -20,6 +20,10 @@ Add the library to Cargo.toml using Github URL
 ```toml
 ftest = { git = "https://github.com/fuji-184/FTest.git" }
 
+
+# for async test support with tokio
+ftest = { git = "https://github.com/fuji-184/FTest.git", features = ["tokio"] }
+
 # for benchmark support in nightly rust
 ftest = { git = "https://github.com/fuji-184/FTest.git", features = ["bench"] }
 ```
