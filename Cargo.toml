@@ -2,6 +2,14 @@
 name = "ftest"
 version = "0.1.0"
 edition = "2024"
+authors = ["Fuji"]
+description = "A set of declarative macros designed to simplify the declaration of unit tests and benchmarks in Rust"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+keywords = ["test", "testing", "unit test", "benchmark", "utils"]
+categories = ["development-tools::testing", "development-tools::profiling", "development-tools::procedural-macro"]
+repository = "https://github.com/fuji-184/FTest"
+homepage = "https://github.com/fuji-184/FTest"
 
 [features]
 bench= []
