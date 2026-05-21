@@ -18,14 +18,13 @@ This project provides a set of declarative macros designed to simplify the decla
 Add the library to Cargo.toml using Github URL
 
 ```toml
-ftest = { git = "https://github.com/fuji-184/FTest.git" }
-
+ftest = { version = "*" }
 
 # for async test support with tokio
-ftest = { git = "https://github.com/fuji-184/FTest.git", features = ["tokio"] }
+ftest = { version = "*", features = ["tokio"] }
 
 # for benchmark support in nightly rust
-ftest = { git = "https://github.com/fuji-184/FTest.git", features = ["bench"] }
+ftest = { version = "*", features = ["bench"] }
 ```
 
 ### 1. Unit Testing with `test!`
