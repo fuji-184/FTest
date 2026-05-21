@@ -46,6 +46,21 @@ test!(my_test_module_name, {
     test_case_two {
         assert!(OFFSET > 0);
     }
+
+    // to test async with tokio
+    test_something.tokio {
+
+    }
+
+    // to skip running certain test
+    test_something.skip {
+
+    }
+
+    // to skip running certain async/tokio test
+    test_something.tokio.skip {
+
+    }
 });
 
 ```
