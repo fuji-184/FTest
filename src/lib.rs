@@ -123,26 +123,37 @@ impl From<anyhow::Error> for TraceError {
     }
 }
 
+#[cfg(feature = "tokio")]
 #[macro_export]
 macro_rules! parse {
   
 ($name:ident . tokio { $($body:tt)* } $($rest:tt)*) => {
-		#[cfg(feature = "tokio")]
 		#[tokio::test]
 		async fn $name() -> Result<(), $crate::TraceError> {
 			$($body)*
 			Ok(())
 		}
-
-		#[cfg(not(feature = "tokio"))]
-		#[test]
-		fn $name() -> Result<(), $crate::TraceError> {
-			panic!("Failed to run async test '{}': the feature 'tokio' isn't activated in ftest", stringify!($name));
-		}
-
 		$crate::parse!($($rest)*);
 	};
 	
+	($name:ident { $($body:tt)* } $($rest:tt)*) => {
+		#[test]
+		fn $name() -> Result<(), $crate::TraceError> {
+        $($body)*
+        Ok(())
+		}
+		$crate::parse!($($rest)*);
+	};
+	($item:item $($rest:tt)*) => {
+		$item
+		$crate::parse!($($rest)*);
+	};
+	() => {};
+}
+
+#[cfg(not(feature = "tokio"))]
+#[macro_export]
+macro_rules! parse {
 	($name:ident { $($body:tt)* } $($rest:tt)*) => {
 		#[test]
 		fn $name() -> Result<(), $crate::TraceError> {
