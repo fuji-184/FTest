@@ -125,6 +125,14 @@ impl From<anyhow::Error> for TraceError {
 
 #[macro_export]
 macro_rules! parse {
+  ($name:ident . tokio { $($body:tt)* } $($rest:tt)*) => {
+		#[tokio::test]
+		async fn $name() -> Result<(), $crate::TraceError> {
+			$($body)*
+			Ok(())
+		}
+		$crate::parse!($($rest)*);
+	};
 	($name:ident { $($body:tt)* } $($rest:tt)*) => {
 		#[test]
 		fn $name() -> Result<(), $crate::TraceError> {
