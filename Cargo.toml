@@ -6,12 +6,9 @@ edition = "2024"
 [features]
 bench= []
 trace= []
+tokio = ["dep:tokio"]
 
 [dependencies]
 anyhow = "1.0.102"
 color-eyre = "0.6.5"
 tokio = { version = "*", features = ["macros", "rt", "rt-multi-thread"], optional = true }
-
-[features]
-default = []
-tokio = ["dep:tokio"]
