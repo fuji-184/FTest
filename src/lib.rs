@@ -126,11 +126,28 @@ impl From<anyhow::Error> for TraceError {
 #[cfg(feature = "tokio")]
 #[macro_export]
 macro_rules! parse {
-  
+  ($name:ident . tokio . skip { $($body:tt)* } $($rest:tt)*) => {
+    #[test]
+		#[ignore = concat!("Test '", stringify!($name), "' has been skipped")]
+		fn $name() -> Result<(), $crate::TraceError> {
+			Ok(())
+		}
+		$crate::parse!($($rest)*);
+	};
+	
 ($name:ident . tokio { $($body:tt)* } $($rest:tt)*) => {
 		#[tokio::test]
 		async fn $name() -> Result<(), $crate::TraceError> {
 			$($body)*
+			Ok(())
+		}
+		$crate::parse!($($rest)*);
+	};
+	
+	  ($name:ident . skip { $($body:tt)* } $($rest:tt)*) => {
+	  #[test]
+		#[ignore = concat!("Test '", stringify!($name), "' has been skipped")]
+		fn $name() -> Result<(), $crate::TraceError> {
 			Ok(())
 		}
 		$crate::parse!($($rest)*);
@@ -154,6 +171,15 @@ macro_rules! parse {
 #[cfg(not(feature = "tokio"))]
 #[macro_export]
 macro_rules! parse {
+  ($name:ident . skip { $($body:tt)* } $($rest:tt)*) => {
+    #[test]
+		#[ignore = concat!("Test '", stringify!($name), "' has been skipped")]
+		fn $name() -> Result<(), $crate::TraceError> {
+			Ok(())
+		}
+		$crate::parse!($($rest)*);
+	};
+	
 	($name:ident { $($body:tt)* } $($rest:tt)*) => {
 		#[test]
 		fn $name() -> Result<(), $crate::TraceError> {
